@@ -1,6 +1,6 @@
 Coursera Practical Machine Learning Assignment - Benjamin Stauch
 ========================================================
-Basics
+Basics:
 Ok, here we go. We start by loading the packages we need, setting the working directory and importing the data.
 ```{r}
 library(caret)
@@ -11,7 +11,7 @@ training <- read.csv("pml-training.csv")
 testing20 <- read.csv('pml-testing.csv')
 ```
 
-Pre-Processing
+Pre-Processing:
 As we are given a huge number of predictors (160), we start by removing a few. First, we remove those who are irrelevant to the task at hand.
 ```{r}
 training <- subset(training, select = -c(X, user_name, raw_timestamp_part_1, raw_timestamp_part_2, cvtd_timestamp))
@@ -26,7 +26,7 @@ nsv <- nearZeroVar(training, saveMetrics=TRUE)
 training <- training[,nsv[, 'nzv']==0]
 ```
 
-Cross-Validation preparation, building the model and evaluating it
+Cross-Validation preparation, building the model and evaluating it:
 Now we split our data from the training file (the "testing"-file is for the other part of the project) into a training and a testing data set.
 ```{r}
 inTrain <- createDataPartition(y=training$classe, p=0.7, list=FALSE)
