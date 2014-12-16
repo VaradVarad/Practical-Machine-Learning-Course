@@ -1,7 +1,8 @@
 library(caret)
 library(randomForest)
+setwd("E:/Users/Benjamin/Documents/R/Coursera/repo/Practical-Machine-Learning-Course")
 
-training <- read.csv('pml-training.csv')
+training <- read.csv("pml-training.csv")
 testing20 <- read.csv('pml-testing.csv')
 
 training <- subset(training, select = -c(X, user_name, raw_timestamp_part_1, raw_timestamp_part_2, cvtd_timestamp))
@@ -12,10 +13,9 @@ training <- training[,nsv[, 'nzv']==0]
 inTrain <- createDataPartition(y=training$classe, p=0.7, list=FALSE)
 trainingF <- training[inTrain,]; testingF <- training[-inTrain,]
 
-
 model <- train(classe ~., method='rf', data=trainingF, ntree=100)
 pred <- predict(model, testingF)
-accuracy(pred, testingF$classe)
+confusionMatrix(pred, testingF$classe)
+answers <- predict(model,testing20)
+answers
 
-pred20 <- predict(model,testing20)
-pred20
